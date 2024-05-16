@@ -4,13 +4,12 @@ export default function Login(){
     return (
    <Layoutencabezado>
     <form className="form">
-        <h1>Login</h1>
-        <label>Username</label>
-        <input type="text"/>
-        <label>Contraseña</label>
-        <input type="password"/>
-        <button>Iniciar Sesión</button>
-
+        <div className="form-container">
+        <input placeholder="Usuario" type="text"/>
+        <input placeholder="Contraseña" type="password"/>
+        <button className="BotonAcceder">Acceder</button>
+        <button className="BotonRegistrar">Regístrarse</button>
+        </div>
     </form>
    </Layoutencabezado> 
     
