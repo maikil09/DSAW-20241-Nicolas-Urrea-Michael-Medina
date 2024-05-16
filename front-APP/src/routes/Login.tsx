@@ -1,4 +1,3 @@
-import DefaultLayout from "../layout/DefaultLayout"
 import Layoutencabezado from "../layout/Layoutencabezado";
 
 export default function Login(){
