@@ -1,31 +1,43 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './routes/Login';
-import Signup from './routes/Signup';
-import Home from './routes/Home';
-import ProtectedRoute from './routes/ProtectedRoute';
-import { AuthProvider } from './Auth/AuthProvider';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Login from './routes/Login.tsx'
+import Signup from './routes/Signup.tsx'
+import Home from './routes/Home.tsx'
+import './index.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ProtectedRoute from './routes/ProtectedRoute.tsx'
+import { AuthProvider } from './Auth/AuthProvider.tsx'
 
-const App = () => (
-  <AuthProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<Home />} />
-        </Route>
-      </Routes>
-    </Router>
-  </AuthProvider>
-);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup/>,
+  },
+  {
+    path: "/",
+    element: <ProtectedRoute/>,
+    children: [
+      {
+        path: "/home",
+        element: <Home/>,
+      },
+    ],
+  },
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
+]);
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </React.StrictMode>,
 );
