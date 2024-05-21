@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAuth } from "../Auth/AuthProvider";
 import Layoutencabezado from "../layout/Layoutencabezado";
 import { Navigate } from "react-router-dom";
-import { API_URL } from "../Auth/constantes";
 
 export default function Signup(){
     const [Name, setName] = useState("");
