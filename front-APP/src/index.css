@@ -28,7 +28,8 @@ h2{
 }
 
 input[type="text"],
-[type="password"] {
+[type="password"],
+[type="email"]  {
   display: block;
   padding: 10px;
   width: 70%;
