@@ -7,6 +7,9 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProtectedRoute from './routes/ProtectedRoute.tsx'
 import { AuthProvider } from './Auth/AuthProvider.tsx'
+import Create from './routes/Create.tsx'
+import Search from './routes/Search.tsx'
+import Profile from './routes/Profile.tsx'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home/>,
+      },
+      {
+        path: "/create",
+        element: <Create/>,
+      },
+      {
+        path: "/search",
+        element: <Search/>,
+      },
+      {
+        path: "/profile",
+        element: <Profile/>,
       },
     ],
   },

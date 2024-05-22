@@ -9,6 +9,7 @@ body {
   margin: 0;
   background-color: #d7d0cab9;
   background: linear-gradient(to bottom, #00205B, #ffffff) 0 0 / 100% 100vh no-repeat;
+  background-attachment: fixed;
 }
 
 h2{
@@ -57,33 +58,6 @@ button {
   background-color:#FF6B00 ;
 }
 
-nav {
-  background-color: #eee;
-}
-
-nav ul {
-  margin: 0;
-}
-
-nav ul li {
-  display: inline-block;
-  padding: 10px;
-}
-
-a {
-  color: rgb(97, 28, 161);
-}
-
-.dashboard {
-  width: 500px;
-  margin: auto;
-}
-
-.errorMessage {
-  background-color: #f2dede;
-  color: #a94442;
-  padding: 10px;
-}
 .encabezado {
   background-color: #00205B; 
   padding: 0.5px;
@@ -93,7 +67,7 @@ a {
 
 .Contenido {
   border-radius: 30px;
-  margin-top: 3%;
+  margin-top: 8%;
   margin-left: 35%;
   margin-right: 35%;
   flex: 1; 
@@ -115,11 +89,103 @@ a {
   align-content: center;
 
 }
-
-
 main {
+
   border-radius: 30px;
   width: 100%;
   background-color: #D9D9D9; 
   margin-bottom: 30px;
+}
+.encabezado-cuerpo {
+  background-color: #00205B; 
+  padding: 0.5px;
+  color: white;
+  text-align: left;
+}
+.cuadro-cuerpo{
+  border-top-right-radius: 50px ;
+  border-bottom-right-radius: 50px ;
+  width: 20rem;
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.295);
+}
+
+
+.cuadro-cuerpo {
+  display: flex;
+  align-items: center;
+
+}
+
+.logo-cuerpo {
+  width: 3rem; 
+  height: auto;
+  margin: 3px;
+  padding: 3px 10px 0 0;
+}
+
+.titulocuerpo {
+  margin: 0;
+  font-size: 24px; 
+  color: #ffffff;
+}
+.Contenido-cuerpo {
+  border-radius: 30px;
+  margin-top: 6%;
+  margin-left: 25%;
+  margin-right: 25%;
+  display: flex;
+  justify-content: center;
+  background-color: #D9D9D9; 
+  border: 2px solid black;
+  flex-grow: 1;
+  
+
+}
+.main-cuerpo{
+  border-radius: 30px;  
+  width: 100%;
+  margin-top: 3%;
+  margin-left: 3%;
+  margin-right: 3%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+ 
+}
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #f4f4f4;
+  z-index: 1000;
+}
+.imagenes-nav {
+  width: 3.5rem; 
+  height: auto;
+  margin: 5px 5px 0px 5px;
+  padding: 3px 5px 0 5px;
+}
+.Menu-nav{
+  display: block;
+  background-color: #514c4c4f;
+  margin-left: 35%;
+  margin-right: 35%;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.tweet{
+  background-color: black;
+  display: block;
+  width: 100%;
+  border-radius: 28px;
+  margin-bottom: 3%;
+  color: white;
 }

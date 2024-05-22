@@ -5,7 +5,7 @@ interface LayoutencabezadoProps{
 export default function Layoutencabezado({children}:LayoutencabezadoProps){
     return(
         <>
-        <header>
+        <header className="header">
         <div className="encabezado">
                 <h1>WhistleUp</h1>
             </div> 

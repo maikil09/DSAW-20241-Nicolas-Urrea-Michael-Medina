@@ -1,12 +1,11 @@
 import Layoutcuerpo from "../layout/Layoutcuerpo";
 
-export default function Home(){
+export default function Search(){
     return (
       <Layoutcuerpo>
-       <div className="tweet">
-            <h1>Hola este es el Home</h1>
+       <div>
+            <h1>Hola aca puedes buscar tweets</h1>
         </div> 
-        
       </Layoutcuerpo>  
     );
 }

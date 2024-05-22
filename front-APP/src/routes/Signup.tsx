@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { useAuth } from "../Auth/AuthProvider";
+/*import { useAuth } from "../Auth/AuthProvider";*/
 import Layoutencabezado from "../layout/Layoutencabezado";
-import { Navigate } from "react-router-dom";
+/*import { Navigate } from "react-router-dom";*/
 
 export default function Signup(){
     const [Name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
-    const auth = useAuth();
+    /*const auth = useAuth();*/
 
-    if(auth.isAuthenticated){
+    /*if(auth.isAuthenticated){
         return <Navigate to="/home" />;
-    }
+    }*/
     return (
         <Layoutencabezado>
         <form className="form" >
