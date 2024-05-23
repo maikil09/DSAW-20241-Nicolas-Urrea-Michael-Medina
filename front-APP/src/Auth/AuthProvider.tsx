@@ -9,13 +9,13 @@ interface AuthProviderProps{
 const AuthContext = createContext({
     isAuthenticated: false,
     getAccessToken: ()=>{},
-    saveUser: (userData: AuthResponse)=> {},
+    saveUser: (_userData: AuthResponse)=> {},
     getRefreshToken : ()=> {},
 });
 export function AuthProvider({children}:AuthProviderProps){
     const [isAuthenticated,setIsAuthenticated] = useState(false);
     const [accessToken, setAccessToken] = useState<String>("");
-    const [user, setUser] = useState<User>();
+    const [, setUser] = useState<User>();
    // const [refreshToken, setRefreshToken] = useState<String>("");
 
    useEffect(()=>{
