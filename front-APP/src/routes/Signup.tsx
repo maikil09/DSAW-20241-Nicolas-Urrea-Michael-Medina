@@ -1,50 +1,58 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Layoutencabezado from "../layout/Layoutencabezado";
+import { /*ErrorResponse,*/ Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth/AuthProvider";
+import { API_URL } from "../Auth/constants";
+import { AuthResponseError } from "../types/types";
 
 export default function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorResponse, setErrorResponse]= useState("");
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
+    const auth = useAuth();
 
-        const user = {
-            name: name,
-            email: email,
-            username: username,
-            password: password,
-        };
+    const goTo = useNavigate();
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
 
-        try {
-            fetch('https://dsaw-2024-1-proyecto-final-api-urrea-medina.vercel.app/register', {
-                method: 'POST',
+        try{
+            const response = await fetch(`${API_URL}/signup`,{
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "content-Type":"application/json"
                 },
-                body: JSON.stringify(user),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Usuario registrado:", data);
-                // Puedes redirigir al usuario a la página de inicio o mostrar un mensaje de éxito
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                // Muestra un mensaje de error al usuario
+                body: JSON.stringify({
+                    name,
+                    email,
+                    username,
+                    password
+                }),
             });
-        } catch (error) {
-            console.error("Error:", error);
-            // Muestra un mensaje de error al usuario
+            if(response.ok){
+                console.log("Usuario creado exitosamente");
+                setErrorResponse("");
+                goTo("/login");
+            }else{
+                console.log("Algo salio mal");
+                const json = await response.json() as AuthResponseError;
+                setErrorResponse(json.body.error);
+
+                return;
+
+            }
+        }catch(error){
+            console.log(error);
+            alert("Algo salio mal");
         }
     }
 
+    if(auth.isAuthenticated){
+        return <Navigate to="/home"/>
+    }
+    
     return (
         <Layoutencabezado>
             <form className="form" onSubmit={handleSubmit}>
@@ -55,6 +63,7 @@ export default function Signup() {
                     <input placeholder="Usuario" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input placeholder="Contraseña" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <button className="BotonAcceder" type="submit">Regístrate</button>
+                    {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
                 </div>
             </form>
         </Layoutencabezado>

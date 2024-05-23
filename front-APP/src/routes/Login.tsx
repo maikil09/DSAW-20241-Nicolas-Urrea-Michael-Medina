@@ -1,51 +1,60 @@
 import { useState } from "react";
 import Layoutencabezado from "../layout/Layoutencabezado";
 import { useAuth } from "../Auth/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { API_URL } from "../Auth/constants";
+import { AuthResponse, AuthResponseError } from "../types/types";
+
 
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorResponse, setErrorResponse]= useState("");
     const auth = useAuth();
-    const navigate = useNavigate();
-    const [error, setError] = useState("");
+    const goTo = useNavigate();
 
-    // Definir el tipo del evento para el registro
-    const handleRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        navigate('/Signup');
-    };
 
-    // Definir el tipo del evento para el submit
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-            const response = await fetch("https://dsaw-2024-1-proyecto-final-api-urrea-medina.vercel.app/login", {
+        try{
+            const response = await fetch(`${API_URL}/login`,{
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "content-Type":"application/json"
                 },
-                body: JSON.stringify({ UserOrEmail: username, password: password }),
-                credentials: "include",
+                body: JSON.stringify({
+                    username,
+                    password
+                }),
             });
+            if(response.ok){
+                console.log("Inicio de Sesión exitoso");
+                setErrorResponse("");
+                const json = (await response.json()) as AuthResponse;
+                
+                if(json.body.accessToken && json.body.refreshToken){
+                    auth.saveUser(json);
+                }
+                goTo("/home");
+            }else{
+                console.log("Algo salio mal");
+                const json = await response.json() as AuthResponseError;
+                setErrorResponse(json.body.error);
 
-            const data = await response.json();
-            if (response.ok) {
-                auth.login(data); // Utiliza el método login del contexto
-                navigate('/home');
-            } else {
-                setError(data.error);
-                console.log("El usuario no esta registrado");
+                return;
+
             }
-        } catch (error) {
-            console.error("Error:", error);
-            setError("Error during login, please try again.");
+        }catch(error){
+            console.log(error);
+            alert("Algo salio mal");
         }
-    };
-
+    }
+    if(auth.isAuthenticated){
+        return <Navigate to="/home"/>
+    }
     return (
         <Layoutencabezado>
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit} >
                 <div className="form-container">
                     <input
                         placeholder="Usuario"
@@ -60,8 +69,8 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <button className="BotonAcceder" type="submit">Acceder</button>
-                    <button className="BotonRegistrar" onClick={handleRegister}>Registrarse</button>
-                    {error && <p>{error}</p>}
+                    <button className="BotonRegistrar">Registrarse</button>
+                    {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
                 </div>
             </form>
         </Layoutencabezado>

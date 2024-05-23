@@ -189,3 +189,7 @@ main {
   margin-bottom: 3%;
   color: white;
 }
+.errorMessage {
+  color: #a94442;
+  padding: 10px;
+}
