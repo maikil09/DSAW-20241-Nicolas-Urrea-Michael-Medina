@@ -11,6 +11,7 @@ const AuthContext = createContext({
     getAccessToken: ()=>{},
     saveUser: (_userData: AuthResponse)=> {},
     getRefreshToken : ()=> {},
+    signOut: ()=>{},
 });
 export function AuthProvider({children}:AuthProviderProps){
     const [isAuthenticated,setIsAuthenticated] = useState(false);
@@ -88,6 +89,12 @@ export function AuthProvider({children}:AuthProviderProps){
         }
     }
    }
+   function signOut(){
+    setIsAuthenticated(false);
+    setAccessToken("");
+    setUser(undefined);
+    localStorage.removeItem("Token");
+   }
 
    function saveSessionInfo(userInfo: User, accessToken:string, refreshToken:string){
      setAccessToken(accessToken);
@@ -112,7 +119,7 @@ export function AuthProvider({children}:AuthProviderProps){
         saveSessionInfo(userData.body.user,userData.body.accessToken,userData.body.refreshToken);
     }
 
-    return (<AuthContext.Provider value={{isAuthenticated, getAccessToken, saveUser, getRefreshToken}}>
+    return (<AuthContext.Provider value={{isAuthenticated, getAccessToken, saveUser, getRefreshToken,signOut}}>
         {children}
         </AuthContext.Provider>);
 }
